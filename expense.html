@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Expense Tracker</title>
+    <meta name="author" content="kiran">
+    <meta name="description" content="Expense tracker Application">
+    <!--<link href="vendor/bootstrap/css/bootstrap.css " rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: pink;
+        }
+        
+        .color {
+            background-color: #fb6f92;
+        }
+        
+        .background_color {
+            background-color: pink;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .color {
+            background-color: #fb6f92;
+        }
+        /* New modal styles */
+        
+        .modal-header {
+            background-color: #fb6f92;
+            /* Same as navbar */
+            color: white;
+        }
+        
+        .modal-content {
+            background-color: #ffd0d7;
+            /* Light pink background */
+            border: 2px solid #fb6f92;
+            /* Border matching header */
+        }
+        
+        .modal-body {
+            background-color: #fff5f7;
+            /* Very light pink for body */
+        }
+        
+        .modal-footer {
+            background-color: #ffd0d7;
+            /* Same as modal content */
+            border-top: 1px solid #fb6f92;
+        }
+        /* Style form elements */
+        
+        .form-control {
+            background-color: white;
+            border: 1px solid #fb6f92;
+        }
+        
+        .form-control:focus {
+            border-color: #fb6f92;
+            box-shadow: 0 0 0 0.25rem rgba(251, 111, 146, 0.25);
+        }
+        
+        .form-label {
+            color: #d23669;
+            /* Dark pink for labels */
+            font-weight: 500;
+        }
+        /* Custom button colors */
+        
+        .btn-color {
+            background-color: #fb6f92;
+            border-color: #fb6f92;
+        }
+        
+        .btn-color:hover {
+            background-color: #e05d80;
+            border-color: #e05d80;
+        }
+        
+        .table-header {
+            background-color: #fb6f92;
+            /* Same as navbar */
+            color: white;
+        }
+        
+        .table-body {
+            background-color: #fff5f7;
+            /* Very light pink for body */
+        }
+    </style>
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg color">
+        <div class="container-fluid color" style="height: 50px;">
+            <a href="#" class="navbar-brand">
+                <img src="assets/icons8-money-100.png" style="width:50px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                    <li class="bi bi-list"></li>
+                 </button>
+            <div class="collapse navbar-collapse" id="navbar1">
+                <div class="navbar-nav">
+                    Home
+                </div>
+            </div>
+        </div>
+    </nav>
+    <form class="background_color">
+        <div class="container mt-5">
+            <div class="float-end">
+                <button type="button" class="btn btn-color" onclick="showexpensemodal()">
+                Add Expense
+            </button>
+            </div>
+            <div class="float-start">
+                <label class="form-label"><b>Total Spent:</b></label>
+                <b><span id="totalspent"></span></b>
+            </div>
+        </div>
+        <div class="container py-5 px-5">
+            <div class="d-flex justify-content-center">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-table">
+                            <table class="table">
+                                <thead class="table-header text-center">
+                                    <th>#</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Spent amount</th>
+                                </thead>
+                                <tbody id="expensetablebody" class=" table-body text-center">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal fade" id="modal1" tabindex="-1">
+        <form id="addexpenseform">
+            <div class=" modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addexpense">Add Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close "></button>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="mb-1 ">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3 " placeholder="Add your expesnse description"></textarea>
+                        </div>
+                        <div class="mb-1 ">
+                            <label for="expenditure" class="form-label">Expenditure Date</label>
+                            <br>
+                            <input type="date" id="expenditure" name="expenditure" rows="3" placeholder="Add your Expenditure Date ">
+                        </div>
+                        <div class="mb-1 ">
+                            <label for="spentamount" class="form-label">Spent amount</label>
+                            <br>
+                            <input type="number" id="spentamount" name="spentamount" rows="3" placeholder="Add your Spent Amount">
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-color" onclick="saveexpense()">Add expense</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
+    <script src="vendor/jquery/jquery.js "></script>
+    <script src="vendor/popper/popper.js "></script>
+    <!--<script src="vendor/bootstrap/js/bootstrap.js "></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js "></script>
+    <script>
+        localStorage.removeItem("expenseStorage");
+        gettotalexpenditure();
+        createtablejson();
+
+        function showexpensemodal() {
+            $("#modal1").modal('show');
+        }
+
+        function saveexpense() {
+            $("#modal1").modal('hide');
+            var datarr = $("#addexpenseform").serializeArray();
+            console.log(datarr);
+            var expenseobject = new Object();
+            var storageobjArr = [];
+            var storageobject = localStorage.getItem("expenseStorage");
+            for (var i in datarr) {
+                var name = datarr[i]['name'];
+                var value = datarr[i]['value'];
+                expenseobject[name] = value;
+            }
+            console.log(expenseobject);
+            if (storageobject != null && storageobject != '' && storageobject != undefined) {
+                storageobjArr = JSON.parse(storageobject);
+                storageobjArr.push(expenseobject);
+            } //if it is already exist
+            else {
+                storageobjArr.push(expenseobject); //if it is not exist
+            }
+            localStorage.setItem("expenseStorage", JSON.stringify(storageobjArr));
+            createtablejson();
+            gettotalexpenditure();
+            $("#addexpenseform").trigger('reset');
+        }
+
+        function createtablejson() {
+            var storageobjArr = [];
+            var storageobject = localStorage.getItem("expenseStorage");
+            var storageobjArr = JSON.parse(storageobject);
+            var html = "";
+            if (storageobject != null && storageobject != undefined && storageobject != '') {
+                if (storageobjArr && storageobjArr.length > 0) {
+                    for (let i in storageobjArr) {
+                        var date = new Date(storageobjArr[i]['expenditure']);
+                        html = html + '<tr>' +
+                            '<td>' + (parseInt(i) + 1) + '</td>' +
+                            '<td>' + storageobjArr[i]['description'] + '</td>' +
+                            '<td>' + date.toLocaleDateString() + '</td>' +
+                            '<td>' + storageobjArr[i]['spentamount'] + '</td>' + '</tr>'
+
+                    }
+                } else {
+                    html = '<tr><td colsapn="4"> No Expense Details are Added yet</td></tr>'
+                }
+            } else {
+                html = '<tr><td colsapn="4"> No Expense Details are Added yet</td></tr>'
+            }
+            $("#expensetablebody").html(html);
+        }
+
+        function gettotalexpenditure() {
+            var storageobjArr = [];
+            var storageobject = localStorage.getItem("expenseStorage");
+            var storageobjArr = JSON.parse(storageobject);
+            var spentamount = 0;
+            if (storageobject != null && storageobject != undefined && storageobject != '') {
+                if (storageobjArr && storageobjArr.length > 0) {
+                    for (let i in storageobjArr) {
+                        spentamount = parseInt(spentamount) + parseInt(storageobjArr[i]['spentamount']);
+                    }
+                } else {
+                    spentamount = 0;
+                }
+            } else {
+                spentamount = 0;
+            }
+            $("#totalspent").html(spentamount);
+        }
+    </script>
+</body>
+
+</html>
