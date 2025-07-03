@@ -178,7 +178,6 @@
                     </div>
                 </div>
             </div>
-    </div>
     </form>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -188,8 +187,7 @@
         createtablejson();
 
         function showexpensemodal() {
-            var myModal = new bootstrap.Modal(document.getElementById('#modal1'));
-            myModal.show();
+            $('#modal1').modal('show');
         }
 
         function saveexpense() {
