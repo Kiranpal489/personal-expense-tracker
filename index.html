@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Expense Tracker</title>
     <meta name="author" content="kiran">
@@ -118,7 +119,7 @@
                  </button>
             <div class="collapse navbar-collapse" id="navbar1">
                 <div class="navbar-nav">
-                    Home
+                    Personal Expense Tracker
                 </div>
             </div>
         </div>
@@ -205,7 +206,7 @@
                 console.log(datarr);
                 var expenseobject = new Object();
                 var storageobjArr = [];
-                var storageobject = sessionStorage.getItem("expenseStorage");
+                var storageobject = localStorage.getItem("expenseStorage");
                 for (var i in datarr) {
                     var name = datarr[i]['name'];
                     var value = datarr[i]['value'];
@@ -219,7 +220,7 @@
                 else {
                     storageobjArr.push(expenseobject); //if it is not exist
                 }
-                sessionStorage.setItem("expenseStorage", JSON.stringify(storageobjArr));
+                localStorage.setItem("expenseStorage", JSON.stringify(storageobjArr));
 
                 createtablejson();
                 gettotalexpenditure();
@@ -228,7 +229,7 @@
 
             function createtablejson() {
                 var storageobjArr = [];
-                var storageobject = sessionStorage.getItem("expenseStorage");
+                var storageobject = localStorage.getItem("expenseStorage");
                 var storageobjArr = JSON.parse(storageobject);
                 var html = "";
                 if (storageobject != null && storageobject != undefined && storageobject != '') {
@@ -255,19 +256,20 @@
 
             function deleteExpense(index) {
                 if (confirm("Are you sure you want to delete this expense?")) {
-                    let storageobject = sessionStorage.getItem("expenseStorage");
+                    let storageobject = localStorage.getItem("expenseStorage");
                     if (storageobject) {
                         let storageobjArr = JSON.parse(storageobject);
                         storageobjArr.splice(index, 1); // remove one item at index
-                        sessionStorage.setItem("expenseStorage", JSON.stringify(storageobjArr));
+                        localStorage.setItem("expenseStorage", JSON.stringify(storageobjArr));
                         createtablejson();
                         gettotalexpenditure();
                     }
                 }
             }
+
             function gettotalexpenditure() {
                 var storageobjArr = [];
-                var storageobject = sessionStorage.getItem("expenseStorage");
+                var storageobject = localStorage.getItem("expenseStorage");
                 var storageobjArr = JSON.parse(storageobject);
                 var spentamount = 0;
                 if (storageobject != null && storageobject != undefined && storageobject != '') {
